@@ -5,7 +5,7 @@ BuffOverlay = LibStub("AceAddon-3.0"):NewAddon("BuffOverlay", "AceConsole-3.0")
 --Higher in spellList = higher shown priority
 
 BuffOverlay.spells = {
-  --Prot Pally
+  --Prot Pally X
   228050, --Divine Shield (Prot PvP)
   314517, --Void Jaunt (PvP Trinket)
 
