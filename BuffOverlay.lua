@@ -134,6 +134,7 @@ BuffOverlay.spells = {
   307528, --Gift of the Titans
   313698, --Gift of the Titans
   286342, --(Trinket Gladiator's Safeguard)
+  314585, --Psychic Shell Trinket
   318378, -- Steadfast Resolve (8.3 Cloak)
 
 }
