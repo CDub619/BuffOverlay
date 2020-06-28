@@ -8,6 +8,7 @@ BuffOverlay.spells = {
   --Prot Pally X
   228050, --Divine Shield (Prot PvP)
   314517, --Void Jaunt (PvP Trinket)
+  58984, --Shadowmeld
 
   --Hunter
   5384, --Feign Death
@@ -100,6 +101,7 @@ BuffOverlay.spells = {
   199027, --Veil of Midnight
   1966, --Feint
   185311, --Crimson Vial
+  185422, --Shadow Dance
   115192, --Subterfuge
   --1784,   --Stealth
 
