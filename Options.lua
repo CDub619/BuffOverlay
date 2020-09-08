@@ -165,12 +165,12 @@ function BuffOverlay:Options()
                         width = "full",
                         desc = "Toggle showing of the cooldown text."
                     },
-                    welcomeMessage = {
+                    alwyashidedebuffs = {
                         order = 12,
-                        name = "Welcome Message",
+                        name = "Priortize Growing Buffs & Debuffs Icons",
                         type = "toggle",
                         width = "full",
-                        desc = "Toggle showing of the welcome message on login."
+                        desc = "Toggle on to show buffs & debuffs at the same time or off to show only buffs then debuffs."
                     }
                 }
             },

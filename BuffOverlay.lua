@@ -139,7 +139,99 @@ BuffOverlay.spells = {
   314585, --Psychic Shell Trinket
   318378, -- Steadfast Resolve (8.3 Cloak)
 
+--17,   --Power Word: Shield
+
+--DEBUFFS START---------------------------------------------------------------
+
+--6788, --Weakeend Soul
+
+  --**CC Oh Shit Warning!!**--
+
+  205369, --Mind Bomb
+  202914, --Spider Sting
+  80240, --Havoc
+
+  --**Oh Shit Warning!!**--
+
+  202797, --Viper Sting
+  --206649, --**Eye of Leotheras
+  197091, --Neurotoxin
+  77606, --Dark Simulacrum
+  289959, --Dead of Winter
+  208997, --Counterstrike Totem
+
+  --**Major MS Effects!!**--
+
+  198819, --Mortal Strike
+  199845, --Psyflay
+  200587, --Fel Fissure
+  48743, --Death Pact
+
+  --**Big Dmg Warning!!**--
+
+  293491, --Cyclotronic Blast
+  --79140, --**Vendetta
+  --198259, --**Plunder Armor
+  --115080, --**Touch of Death
+  209967, --Dire Beast: Basilisk
+  130736, --Soul Reaper
+  232559, --Thorns
+
+  --**Player Health  Warning!!**--
+
+  236021, --Ferocious Wound
+  199954, --Curse of Fragility
+
+  --**Reduced Cast**--
+
+  199890, --Curse of Tongues
+
+  --**Reduced Dmg**--
+
+  236273, --Duel
+  199892, --Curse of Weakness
+  200947, --Encroaching Vines
+  202900, --Scorpid Sting
+  203268, --Sticky Tar
+
+  --**Reduced Haste**--
+
+  247777, --Mind Trauma
+
+  --**Reduced Dmg to Class**--
+
+  207744, --Fiery Brand
+
+  --**Decent Dmg Warning!!**--
+
+  316835, --Mind Flay (Twisted Appendage)
+  206647, --Electrocute
+  214621, --Schism
+  48181, --Haunt
+  234877, --Curse of Shadows
+  196414, --Eradication
+  206491, --Nemesis
+  131894, --A Murder of Crows
+  208086, --Colossus Smash
+  --197051, --**Mind-Numbing Poison
+  --271465, --**Rotcrusted Voodoo Doll
+  --294127, --**Gladiator’s Maledict
+  --122470, --**Touch of Karma
+  --124280, --**Touch of Karma
+  297108, --Blood of the Enemy
+  320297, --Lingering Spite (8.3 Gladiator's Spite)
+  315392, --Gladiator's Spite
+  206891, --Focused Assault
+
+
+  --**Cooldown Reduction Warning!!**--
+
+  --233397, --**Delirium
+  --214975, --**Heartstop Aura
+  --199719, --**Heartstop Aura
+
 }
+
 
 local defaultSettings = {
     profile = {
@@ -154,7 +246,7 @@ local defaultSettings = {
         cooldownNumberScale = 0.5,
         iconXOff = 0,
         iconYOff = 0,
-        welcomeMessage = true,
+        alwyashidedebuffs = true,
         buffs = {}
     },
 }
@@ -182,14 +274,14 @@ function BuffOverlay:OnInitialize()
 
     self:Options()
 
-    if self.db.profile.welcomeMessage then
-        self.print("Type /buffoverlay or /bo to open the options panel or /bo help for more commands.  (This message can be disabled in options).")
-    end
+
 
     self.frames = {}
     self.overlays = {}
     self.priority = {}
+    self.priorityd = {}
     self.buffs = {}
+
 
     for i = 1, #self.spells do
         InsertTestBuff(self.spells[i])
@@ -282,7 +374,12 @@ local function CompactUnitFrame_UtilSetBuff(buffFrame, unit, index, filter)
 
     local UnitBuff = BuffOverlay.test and UnitBuffTest or UnitBuff
 
-    local _, icon, count, _, duration, expirationTime = UnitBuff(unit, index, filter)
+    local _, icon, count, debuffType, duration, expirationTime, _, _, _, spellId = UnitBuff(unit, index, filter)
+
+        --[[if spellId == 17 then
+            icon = 254105
+          end]]--
+
     buffFrame.icon:SetTexture(icon)
     if ( count > 1 ) then
         local countText = count
@@ -305,6 +402,52 @@ local function CompactUnitFrame_UtilSetBuff(buffFrame, unit, index, filter)
     buffFrame:Show()
 end
 
+function CompactUnitFrame_UtilSetDebuff(debuffFrame, unit, index, filter, isBossAura, isBossBuff, ...)
+	-- make sure you are using the correct index here!
+	--isBossAura says make this look large.
+	--isBossBuff looks in HELPFULL auras otherwise it looks in HARMFULL ones
+	local name, icon, count, debuffType, duration, expirationTime, unitCaster, canStealOrPurge, _, spellId = ...;
+	if name == nil then
+		-- for backwards compatibility - this functionality will be removed in a future update
+		if unit then
+			if (isBossBuff) then
+				name, icon, count, debuffType, duration, expirationTime, unitCaster, canStealOrPurge, _, spellId = UnitBuff(unit, index, filter);
+			else
+				name, icon, count, debuffType, duration, expirationTime, unitCaster, canStealOrPurge, _, spellId = UnitDebuff(unit, index, filter);
+			end
+		else
+			return;
+		end
+	end
+	debuffFrame.filter = filter;
+
+            if spellId == 316835 then
+              icon = 254105
+            end
+
+	debuffFrame.icon:SetTexture(icon);
+	if ( count > 1 ) then
+		local countText = count;
+		if ( count >= 100 ) then
+			countText = BUFF_STACKS_OVERFLOW;
+		end
+		debuffFrame.count:Show();
+		debuffFrame.count:SetText(countText);
+	else
+		debuffFrame.count:Hide();
+	end
+	debuffFrame:SetID(index);
+	local enabled = expirationTime and expirationTime ~= 0;
+	if enabled then
+		local startTime = expirationTime - duration;
+		CooldownFrame_Set(debuffFrame.cooldown, startTime, duration, true);
+	else
+		CooldownFrame_Clear(debuffFrame.cooldown);
+	end
+
+	debuffFrame:Show();
+end
+
 function BuffOverlay:ApplyOverlay(frame)
     if frame:IsForbidden() or not frame.buffFrames then
         return
@@ -313,6 +456,7 @@ function BuffOverlay:ApplyOverlay(frame)
     local unit = frame.displayedUnit
     local bFrame = frame:GetName() .. "BuffOverlay"
     local overlayNum = 1
+    local buffnum = 1
 
     local UnitBuff = self.test and UnitBuffTest or UnitBuff
 
@@ -347,7 +491,8 @@ function BuffOverlay:ApplyOverlay(frame)
         end
         overlay:Hide()
     end
-
+---------------------start of growing buff & debuff loop---------------------
+if self.db.profile.alwyashidedebuffs then
     if #self.priority > 0 then
         for i = 1, #self.priority do
             self.priority[i] = nil
@@ -360,9 +505,22 @@ function BuffOverlay:ApplyOverlay(frame)
             if self.buffs[buffName] and not self.buffs[spellId] then
                 self.buffs[spellId] = self.buffs[buffName]
             end
-
             if self.buffs[spellId] then
-                rawset(self.priority, #self.priority+1, {i, self.buffs[spellId]})
+                rawset(self.priority, #self.priority+1, {i, self.buffs[spellId], "buff"})
+            end
+        else
+            break
+        end
+    end
+
+    for i = 1, 40 do
+        local buffName, _, _, _, _, _, _, _, _, spellId = UnitDebuff(unit, i)
+        if spellId then
+            if self.buffs[buffName] and not self.buffs[spellId] then
+                self.buffs[spellId] = self.buffs[buffName]
+            end
+            if self.buffs[spellId] then
+                rawset(self.priority, #self.priority+1, {i, self.buffs[spellId], "debuff"})
             end
         else
             break
@@ -377,21 +535,110 @@ function BuffOverlay:ApplyOverlay(frame)
 
     while overlayNum <= self.db.profile.iconCount do
         if self.priority[overlayNum] then
+          --print(self.priority[overlayNum][1], self.priority[overlayNum][2], self.priority[overlayNum][3], self.priority[overlayNum][4])
+          if self.priority[overlayNum] and self.priority[overlayNum][3] == "buff" then
+            --print("buff")
             CompactUnitFrame_UtilSetBuff(self.overlays[bFrame .. overlayNum], unit, self.priority[overlayNum][1], nil)
-            self.overlays[bFrame .. overlayNum]:SetSize(frame.buffFrames[1]:GetSize())
+          elseif self.priority[overlayNum] and self.priority[overlayNum][3] == "debuff" then
+           --print("debuff")
+            CompactUnitFrame_UtilSetDebuff(self.overlays[bFrame .. overlayNum], unit, self.priority[overlayNum][1], nil)
+          end
 
-            local point, relativeTo, relativePoint, xOfs, yOfs = self.overlays[bFrame .. 1]:GetPoint()
-            if self.db.profile.growDirection == "HORIZONTAL" then
-                self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, -(self.overlays[bFrame .. 1]:GetWidth()/2)*(overlayNum-1)+self.db.profile.iconXOff, yOfs)
-            elseif self.db.profile.growDirection == "VERTICAL" then
-                self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, xOfs, -(self.overlays[bFrame .. 1]:GetHeight()/2)*(overlayNum-1)+self.db.profile.iconYOff)
-            end
-            overlayNum = overlayNum + 1
-        else
-            break
-        end
+          self.overlays[bFrame .. overlayNum]:SetSize(frame.buffFrames[1]:GetSize())
+          local point, relativeTo, relativePoint, xOfs, yOfs = self.overlays[bFrame .. 1]:GetPoint()
+          if self.db.profile.growDirection == "HORIZONTAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, -(self.overlays[bFrame .. 1]:GetWidth()/2)*(overlayNum-1)+self.db.profile.iconXOff, yOfs)
+          elseif self.db.profile.growDirection == "VERTICAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, xOfs, -(self.overlays[bFrame .. 1]:GetHeight()/2)*(overlayNum-1)+self.db.profile.iconYOff)
+          end
+    overlayNum = overlayNum + 1
+      else
+        break
     end
+  end
     self.frames[frame] = true
+else
+---------------------start of seperate buff & debuff loop---------------------
+  if #self.priority > 0 then
+      for i = 1, #self.priority do
+          self.priority[i] = nil
+      end
+  end
+  if #self.priorityd > 0 then
+      for i = 1, #self.priorityd do
+          self.priorityd[i] = nil
+      end
+  end
+
+  for i = 1, 40 do
+      local buffName, _, _, _, _, _, _, _, _, spellId = UnitBuff(unit, i)
+      if spellId then
+          if self.buffs[buffName] and not self.buffs[spellId] then
+              self.buffs[spellId] = self.buffs[buffName]
+          end
+          if self.buffs[spellId] then
+              rawset(self.priority, #self.priority+1, {i, self.buffs[spellId]})
+          end
+      else
+          break
+      end
+  end
+
+  for i = 1, 40 do
+      local buffName, _, _, _, _, _, _, _, _, spellId = UnitDebuff(unit, i)
+      if spellId then
+          if self.buffs[buffName] and not self.buffs[spellId] then
+              self.buffs[spellId] = self.buffs[buffName]
+          end
+          if self.buffs[spellId] then
+              rawset(self.priorityd, #self.priorityd+1, {i, self.buffs[spellId]})
+          end
+      else
+          break
+      end
+  end
+  if #self.priority > 1 then
+      table.sort(self.priority, function(a, b)
+          return a[2] < b[2]
+      end)
+  end
+  if #self.priorityd > 1 then
+      table.sort(self.priorityd, function(a, b)
+          return a[2] < b[2]
+      end)
+  end
+
+  while overlayNum <= self.db.profile.iconCount do
+      if self.priority[overlayNum] or self.priorityd[overlayNum] then
+        if self.priority[overlayNum] then
+          --print(self.priority[overlayNum][1], self.priority[overlayNum][2], self.priority[overlayNum][3], self.priority[overlayNum][4])
+          CompactUnitFrame_UtilSetBuff(self.overlays[bFrame .. overlayNum], unit, self.priority[overlayNum][1], nil)
+          buffnum = buffnum + 1
+          self.overlays[bFrame .. overlayNum]:SetSize(frame.buffFrames[1]:GetSize())
+          local point, relativeTo, relativePoint, xOfs, yOfs = self.overlays[bFrame .. 1]:GetPoint()
+          if self.db.profile.growDirection == "HORIZONTAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, -(self.overlays[bFrame .. 1]:GetWidth()/2)*(overlayNum-1)+self.db.profile.iconXOff, yOfs)
+          elseif self.db.profile.growDirection == "VERTICAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, xOfs, -(self.overlays[bFrame .. 1]:GetHeight()/2)*(overlayNum-1)+self.db.profile.iconYOff)
+          end
+        elseif self.priorityd[overlayNum] and buffnum <= 1 then
+          --print(self.priorityd[overlayNum][1], self.priorityd[overlayNum][2], self.priorityd[overlayNum][3], self.priorityd[overlayNum][4])
+          CompactUnitFrame_UtilSetDebuff(self.overlays[bFrame .. overlayNum], unit, self.priorityd[overlayNum][1], nil)
+          self.overlays[bFrame .. overlayNum]:SetSize(frame.buffFrames[1]:GetSize())
+          local point, relativeTo, relativePoint, xOfs, yOfs = self.overlays[bFrame .. 1]:GetPoint()
+          if self.db.profile.growDirection == "HORIZONTAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, -(self.overlays[bFrame .. 1]:GetWidth()/2)*(overlayNum-1)+self.db.profile.iconXOff, yOfs)
+          elseif self.db.profile.growDirection == "VERTICAL" then
+              self.overlays[bFrame .. 1]:SetPoint(point, relativeTo, relativePoint, xOfs, -(self.overlays[bFrame .. 1]:GetHeight()/2)*(overlayNum-1)+self.db.profile.iconYOff)
+          end
+        end
+  overlayNum = overlayNum + 1
+    else
+      break
+  end
+end
+  self.frames[frame] = true
+end
 end
 
 hooksecurefunc("CompactUnitFrame_UpdateAuras", function(frame)
