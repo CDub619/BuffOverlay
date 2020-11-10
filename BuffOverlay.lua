@@ -402,7 +402,7 @@ local function CompactUnitFrame_UtilSetBuff(buffFrame, unit, index, filter)
     buffFrame:Show()
 end
 
-function CompactUnitFrame_UtilSetDebuff(debuffFrame, unit, index, filter, isBossAura, isBossBuff, ...)
+local function CompactUnitFrame_UtilSetDebuff(debuffFrame, unit, index, filter, isBossAura, isBossBuff, ...)
 	-- make sure you are using the correct index here!
 	--isBossAura says make this look large.
 	--isBossBuff looks in HELPFULL auras otherwise it looks in HARMFULL ones
