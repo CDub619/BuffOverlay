@@ -1,6 +1,6 @@
 --BuffOverlay by Click @ Tichondrius
-
-BuffOverlay = LibStub("AceAddon-3.0"):NewAddon("BuffOverlay", "AceConsole-3.0")
+local AddonName, BuffOverlay = ...
+local BuffOverlay = LibStub("AceAddon-3.0"):NewAddon( "BuffOverlay", "AceConsole-3.0")
 
 --Higher in spellList = higher shown priority
 
@@ -258,6 +258,15 @@ local function InsertTestBuff(spellId)
     rawset(TestBuffs, #TestBuffs+1, {spellId, tex})
 end
 
+for i = 1, #BuffOverlay.spells do
+    InsertTestBuff(BuffOverlay.spells[i])
+end
+
+BuffOverlay.buffs = {}
+for k, v in ipairs(BuffOverlay.spells) do
+    BuffOverlay.buffs[v] = k
+end
+
 local function UnitBuffTest(unit, index)
     local buff = TestBuffs[index]
     if not buff then return end
@@ -274,22 +283,10 @@ function BuffOverlay:OnInitialize()
 
     self:Options()
 
-
-
     self.frames = {}
     self.overlays = {}
     self.priority = {}
     self.priorityd = {}
-    self.buffs = {}
-
-
-    for i = 1, #self.spells do
-        InsertTestBuff(self.spells[i])
-    end
-
-    for k, v in ipairs(self.spells) do
-        self.buffs[v] = k
-    end
 
     SLASH_BuffOverlay1 = "/bo"
     SLASH_BuffOverlay2 = "/buffoverlay"

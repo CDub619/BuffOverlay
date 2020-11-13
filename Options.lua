@@ -1,3 +1,4 @@
+local _, BuffOverlay = ...
 local BuffOverlay = LibStub("AceAddon-3.0"):GetAddon("BuffOverlay")
 
 function BuffOverlay:Options()
@@ -174,18 +175,18 @@ function BuffOverlay:Options()
                     }
                 }
             },
-            -- spells = {
-            --     name = "Spells [NYI]",
-            --     order = 5,
-            --     type = "group",
-            --     args = {
-            --         buffs = {
-            --             name = "--todo: Add / remove / manage spell list",
-            --             type = "description",
-            --             width = "full",
-            --         }
-            --     }
-            -- }
+            spells = {
+                 name = "Spells [NYI]",
+                 order = 5,
+                 type = "group",
+                 args = {
+                     buffs = {
+                         name = "--todo: Add / remove / manage spell list",
+                         type = "description",
+                         width = "full",
+                     }
+                 }
+             }
         }
     }
 
