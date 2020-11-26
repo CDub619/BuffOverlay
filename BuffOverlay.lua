@@ -27,9 +27,9 @@ BuffOverlay.spells = {
   --Death Knight
   116888, --Shroud of Purgatory
   48792,  --Icebound Fortitude
-  287081, --Lichborne
   55233,  --Vampiric Blood
   48707,  --Anti-Magic Shell
+  49039, --Lichborne
   194679, --Rune Tap
   288977, --Transfusion
   81256,  --Dancing Rune Weapon
@@ -160,6 +160,7 @@ BuffOverlay.spells = {
   289959, --Dead of Winter
   208997, --Counterstrike Totem
 
+
   --**Major MS Effects!!**--
 
   198819, --Mortal Strike
@@ -176,6 +177,10 @@ BuffOverlay.spells = {
   209967, --Dire Beast: Basilisk
   130736, --Soul Reaper
   232559, --Thorns
+
+--**Special!!**--
+
+  322461, --Thoughtstolen
 
   --**Player Health  Warning!!**--
 
