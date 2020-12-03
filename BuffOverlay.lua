@@ -226,6 +226,7 @@ BuffOverlay.spells = {
   297108, --Blood of the Enemy
   320297, --Lingering Spite (8.3 Gladiator's Spite)
   315392, --Gladiator's Spite
+  323710, --Abomination Limb (recently Pulled)
   206891, --Focused Assault
 
 
