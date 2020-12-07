@@ -179,7 +179,7 @@ BuffOverlay.spells = {
   232559, --Thorns
 
 --**Special!!**--
-
+  307871, --Spear of Bastion (Kyrian)
   322461, --Thoughtstolen
 
   --**Player Health  Warning!!**--
@@ -216,6 +216,7 @@ BuffOverlay.spells = {
   234877, --Curse of Shadows
   196414, --Eradication
   206491, --Nemesis
+  308498, --Resonating Arrow (Kyrian)
   131894, --A Murder of Crows
   208086, --Colossus Smash
   --197051, --**Mind-Numbing Poison
@@ -226,7 +227,7 @@ BuffOverlay.spells = {
   297108, --Blood of the Enemy
   320297, --Lingering Spite (8.3 Gladiator's Spite)
   315392, --Gladiator's Spite
-  323710, --Abomination Limb (recently Pulled)
+  323710, --Abomination Limb (recently Pulled)(Necrolord)
   206891, --Focused Assault
 
 
