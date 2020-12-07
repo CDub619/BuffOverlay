@@ -7,6 +7,7 @@ local BuffOverlay = LibStub("AceAddon-3.0"):NewAddon( "BuffOverlay", "AceConsole
 BuffOverlay.spells = {
   --Prot Pally X
   228050, --Divine Shield (Prot PvP)
+  33079, -- Overwatch
   314517, --Void Jaunt (PvP Trinket)
   58984, --Shadowmeld
 
@@ -51,6 +52,8 @@ BuffOverlay.spells = {
   45438,  --Ice Block
   108843, --Blazing Speed (Cauterize)
   113862, --Greater Invisibility
+  110909, --Alter time
+  342246, --Alter Time
   198111, --Temporal Shield
   198065, --Prismatic Cloak
   198144, --Ice Form
@@ -175,12 +178,19 @@ BuffOverlay.spells = {
   --198259, --**Plunder Armor
   --115080, --**Touch of Death
   209967, --Dire Beast: Basilisk
-  130736, --Soul Reaper
   232559, --Thorns
 
 --**Special!!**--
   307871, --Spear of Bastion (Kyrian)
+  322442, --Thoughtstolen
+  322464, --Thoughtstolen
+  322463, --Thoughtstolen
+  322462, --Thoughtstolen
   322461, --Thoughtstolen
+  322460, --Thoughtstolen
+  322459, --Thoughtstolen
+  322458, --Thoughtstolen
+  322457, --Thoughtstolen
 
   --**Player Health  Warning!!**--
 
@@ -227,6 +237,7 @@ BuffOverlay.spells = {
   297108, --Blood of the Enemy
   320297, --Lingering Spite (8.3 Gladiator's Spite)
   315392, --Gladiator's Spite
+  343294, --Soul Reaper
   323710, --Abomination Limb (recently Pulled)(Necrolord)
   206891, --Focused Assault
 
