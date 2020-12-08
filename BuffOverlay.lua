@@ -7,8 +7,11 @@ local BuffOverlay = LibStub("AceAddon-3.0"):NewAddon( "BuffOverlay", "AceConsole
 BuffOverlay.spells = {
   --Prot Pally X
   228050, --Divine Shield (Prot PvP)
-  33079, -- Overwatch
-  314517, --Void Jaunt (PvP Trinket)
+  330279, -- Overwatch
+  147833, --Intervene
+  8178, --Grounding Totem Effect
+  --213915, --Mass Spell Reflection Legendary
+  --314517, --Void Jaunt (PvP Trinket)
   58984, --Shadowmeld
 
   --Hunter
