@@ -6,6 +6,8 @@ local BuffOverlay = LibStub("AceAddon-3.0"):NewAddon( "BuffOverlay", "AceConsole
 
 BuffOverlay.spells = {
   --Prot Pally X
+  295963, --Crumbling Aegis (Torghast Immune)
+  320224, --Podtender (NightFae Soulbind Tree)
   228050, --Divine Shield (Prot PvP)
   330279, -- Overwatch
   147833, --Intervene
@@ -13,6 +15,7 @@ BuffOverlay.spells = {
   --213915, --Mass Spell Reflection Legendary
   --314517, --Void Jaunt (PvP Trinket)
   58984, --Shadowmeld
+
 
   --Hunter
   5384, --Feign Death
@@ -91,7 +94,7 @@ BuffOverlay.spells = {
 
   --Priest
   47585,  --Dispersion
-  215769, --Spirit of Redemption
+  215769, --Spirit of Redemption PvP
   213602, --Greater Fade
   --47788,  --Guardian Spirit
   --33206,  --Pain Suppression
@@ -148,8 +151,7 @@ BuffOverlay.spells = {
 --17,   --Power Word: Shield
 
 --DEBUFFS START---------------------------------------------------------------
-
---6788, --Weakeend Soul
+  --6788, --Weakeend Soul
 
   --**CC Oh Shit Warning!!**--
 
@@ -168,7 +170,7 @@ BuffOverlay.spells = {
 
 
   --**Major MS Effects!!**--
-
+  343721,  --Final Reckoning
   198819, --Mortal Strike
   199845, --Psyflay
   200587, --Fel Fissure
@@ -203,6 +205,7 @@ BuffOverlay.spells = {
   --**Reduced Cast**--
 
   199890, --Curse of Tongues
+  320035, --Mirrors of Torment (Haste/Snare)
 
   --**Reduced Dmg**--
 
@@ -229,6 +232,7 @@ BuffOverlay.spells = {
   234877, --Curse of Shadows
   196414, --Eradication
   206491, --Nemesis
+  323802, --The HUnt (NightFae)
   308498, --Resonating Arrow (Kyrian)
   131894, --A Murder of Crows
   208086, --Colossus Smash
@@ -441,6 +445,19 @@ local function CompactUnitFrame_UtilSetDebuff(debuffFrame, unit, index, filter, 
 
             if spellId == 316835 then
               icon = 254105
+            end
+
+            if spellId == 199845 then --Psyflay
+              icon = 537021
+            end
+
+
+            if spellId == 320035 then
+              debuffFrame.icon:SetDesaturated(1) --Destaurate Icon
+              debuffFrame.icon:SetVertexColor(1, 1, 0); -- Yellow Set
+            else
+              debuffFrame.icon:SetDesaturated(nil) --Destaurate Icon
+              debuffFrame.icon:SetVertexColor(1, 1, 1);
             end
 
 	debuffFrame.icon:SetTexture(icon);
