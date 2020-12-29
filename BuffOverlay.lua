@@ -148,10 +148,11 @@ BuffOverlay.spells = {
   314585, --Psychic Shell Trinket
   318378, -- Steadfast Resolve (8.3 Cloak)
 
---17,   --Power Word: Shield
+  --17,   --Power Word: Shield
 
 --DEBUFFS START---------------------------------------------------------------
   --6788, --Weakeend Soul
+  --1604, --Dazed
 
   --**CC Oh Shit Warning!!**--
 
@@ -402,6 +403,9 @@ local function CompactUnitFrame_UtilSetBuff(buffFrame, unit, index, filter)
             icon = 254105
           end]]--
 
+    buffFrame.icon:SetDesaturated(nil) --Destaurate Icon
+    buffFrame.icon:SetVertexColor(1, 1, 1);
+
     buffFrame.icon:SetTexture(icon)
     if ( count > 1 ) then
         local countText = count
@@ -451,10 +455,9 @@ local function CompactUnitFrame_UtilSetDebuff(debuffFrame, unit, index, filter, 
               icon = 537021
             end
 
-
-            if spellId == 320035 then
+            if spellId == 320035 then -- showing when its buff but shouldnt --320035
               debuffFrame.icon:SetDesaturated(1) --Destaurate Icon
-              debuffFrame.icon:SetVertexColor(1, 1, 0); -- Yellow Set
+              debuffFrame.icon:SetVertexColor(.9, 0, .6); -- Purple Set
             else
               debuffFrame.icon:SetDesaturated(nil) --Destaurate Icon
               debuffFrame.icon:SetVertexColor(1, 1, 1);
