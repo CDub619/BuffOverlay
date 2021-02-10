@@ -10,6 +10,7 @@ BuffOverlay.spells = {
   320224, --Podtender (NightFae Soulbind Tree)
   228050, --Divine Shield (Prot PvP)
   330279, -- Overwatch
+  335255, -- Mass Spell Reflection Legendary
   147833, --Intervene
   8178, --Grounding Totem Effect
   --213915, --Mass Spell Reflection Legendary
@@ -171,14 +172,13 @@ BuffOverlay.spells = {
 
 
   --**Major MS Effects!!**--
-  343721,  --Final Reckoning
   198819, --Mortal Strike
   199845, --Psyflay
   200587, --Fel Fissure
   48743, --Death Pact
 
   --**Big Dmg Warning!!**--
-
+  343721, --Final Reckoning
   293491, --Cyclotronic Blast
   --79140, --**Vendetta
   --198259, --**Plunder Armor
@@ -228,6 +228,7 @@ BuffOverlay.spells = {
 
   316835, --Mind Flay (Twisted Appendage)
   206647, --Electrocute
+  307454, --Radiant Spark Vulnerability
   214621, --Schism
   48181, --Haunt
   234877, --Curse of Shadows
