@@ -16,6 +16,7 @@ BuffOverlay.spells = {
   --213915, --Mass Spell Reflection Legendary
   --314517, --Void Jaunt (PvP Trinket)
   58984, --Shadowmeld
+  323524, --Ultimate Form (Necrolord)
 
 
   --Hunter
@@ -84,6 +85,7 @@ BuffOverlay.spells = {
   205191, --Eye for an Eye
   86659,  --Guardian of Ancient Kings
   31850,  --Ardent Defender
+  199545, --Steed of Glory
   204150, --Aegis of Light
   31884, --Avenging Wrath (Offensive/Defensive)
   132403, --Shield of the Righteous
@@ -229,6 +231,7 @@ BuffOverlay.spells = {
   316835, --Mind Flay (Twisted Appendage)
   206647, --Electrocute
   307454, --Radiant Spark Vulnerability
+  307443, --Radiant Spark
   214621, --Schism
   48181, --Haunt
   234877, --Curse of Shadows
@@ -400,9 +403,9 @@ local function CompactUnitFrame_UtilSetBuff(buffFrame, unit, index, filter)
 
     local _, icon, count, debuffType, duration, expirationTime, _, _, _, spellId = UnitBuff(unit, index, filter)
 
-        --[[if spellId == 17 then
-            icon = 254105
-          end]]--
+        if spellId == 199545 then --Steed of Glory Hack
+            icon = 135890
+        end
 
     buffFrame.icon:SetDesaturated(nil) --Destaurate Icon
     buffFrame.icon:SetVertexColor(1, 1, 1);
