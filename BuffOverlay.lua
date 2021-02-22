@@ -208,12 +208,14 @@ BuffOverlay.spells = {
   --**Reduced Cast**--
 
   199890, --Curse of Tongues
+  1714, --Curse of Tongues
   320035, --Mirrors of Torment (Haste/Snare)
 
   --**Reduced Dmg**--
 
   236273, --Duel
   199892, --Curse of Weakness
+  702, --Curse of Weakness
   200947, --Encroaching Vines
   202900, --Scorpid Sting
   203268, --Sticky Tar
@@ -234,7 +236,7 @@ BuffOverlay.spells = {
   307443, --Radiant Spark
   214621, --Schism
   48181, --Haunt
-  234877, --Curse of Shadows
+  234877, --Bane of Shadows
   196414, --Eradication
   206491, --Nemesis
   323802, --The HUnt (NightFae)
